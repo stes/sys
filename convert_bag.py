@@ -2,27 +2,39 @@
 
 ''' Convert rosbag logging files to json
 
-$ ./convert_bag.py infile.bag outfile.json /first/topic [/second/topic ...]
+$ ./convert_bag.py infile.bag outfile.json
 '''
 
 import rosbag
 import sys
 import json
+import yaml
+import re
 
 if __name__ == '__main__':
 	bag_dict = {}
 	bag = rosbag.Bag(sys.argv[1])
-        for msg_name in sys.argv[3:]:
-            bag_dict[msg_name] = {}
-            for topic, msg, t in bag.read_messages(msg_name):
-                msg_dict = '{'
-                for line in str(msg).split("\n"):
-                        fmt_line = '"' + line.replace(":", '":')
-                        msg_dict += fmt_line + ","
-                msg_dict += '"timestamp": {}'.format(t)
-                msg_dict += "}"
-                msg_dict = json.loads(msg_dict)	
-                bag_dict[msg_name][str(t)] = msg_dict
+
+        regex = re.compile(r'[ ]*(.*)[:] (.*)')
+        
+        n_messages =  bag.get_message_count()
+        for n, (topic, msg, t) in enumerate(bag.read_messages()):
+            msg_dict = {}
+            for line in str(msg).split("\n"):
+                match = regex.search(line)
+                if match is not None:
+                    groups = match.groups()
+                    if len(groups) == 2:
+                        key, data = groups
+                        msg_dict[key] = data
+
+            msg_dict['topic'] = str(topic)
+            msg_dict['timestamp'] = int(str(t))
+            bag_dict[int(str(t))] = msg_dict
+            
+            if n % (n_messages // 100) == 0:
+                print('Processing Message {}/{}'.format(n, n_messages))
+
 	bag.close()
 	with open(sys.argv[2], "w") as fp:
             json.dump(bag_dict, fp)
