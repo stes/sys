@@ -11,7 +11,7 @@ def get_extract_dict():
     """ Topics and keys to extract """
     extract = OrderedDict()
 
-    extract['/mocap/marker_position']                     = ['x', 'y']
+    extract['/mocap/marker_position']                     = ['x', 'y', 'z']
     extract['/mocap/MarkerPose']                          = ['x', 'y', 'z', 'w']
     extract['/roboy/middleware/MotorStatus/displacement'] = [ 3,  5,  6, 10, 12, 13]
 
