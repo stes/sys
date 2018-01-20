@@ -9,15 +9,22 @@ import scipy.interpolate
 
 def get_extract_dict():
     """ Topics and keys to extract """
-    extract = OrderedDict()
 
-    extract['/mocap/marker_position']                     = ['x', 'y', 'z']
-    extract['/mocap/MarkerPose']                          = ['x', 'y', 'z', 'w']
-    extract['/roboy/middleware/MotorStatus/displacement'] = [ 3,  5,  6, 10, 12, 13]
+    extract = [
+        "/roboy/middleware/MotorStatus/displacement/3",
+        "/roboy/middleware/MotorStatus/displacement/5",
+        "/roboy/middleware/MotorStatus/displacement/6",
+        "/roboy/middleware/MotorStatus/displacement/10",
+        "/roboy/middleware/MotorStatus/displacement/12",
+        "/roboy/middleware/MotorStatus/displacement/13",
+        '/mocap/MarkerPose/position/x',
+        '/mocap/MarkerPose/position/y',
+        '/mocap/MarkerPose/position/z',
+        ]
 
     return extract
 
-def load_data(fname, keys=['current', 'displacement', 'position']):
+def load_data(fname):
     """ Load a json file with recordings
 
     The file is converted into multiple pandas dataframes
@@ -56,7 +63,7 @@ def interpolate(df_dict, extract):
 
     start, stop = [],[]
     n_timepoints = []
-    for topic, columns in extract.items():
+    for topic in extract:
         time = np.array(df_dict[topic].index).astype(int)
         start += [time.min()]
         stop  += [time.max()]
@@ -68,8 +75,8 @@ def interpolate(df_dict, extract):
     t = np.linspace(start, stop, n_timepoints)
 
     data = []
-    for topic, columns in extract.items():
-        X    = df_dict[topic].as_matrix(columns=columns)
+    for topic in extract:
+        X    = df_dict[topic].as_matrix()
         time = np.array(df_dict[topic].index).astype(int)
 
         f  = scipy.interpolate.interp1d(time, X, axis=0)
