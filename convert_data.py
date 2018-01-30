@@ -10,6 +10,12 @@ import scipy.interpolate
 def get_extract_dict():
     """ Topics and keys to extract """
 
+    # specify the ROS topic keys to extract here.
+    # it might helpful to consider these:
+    #
+    # "/roboy/middleware/MotorStatus/displacement/3"
+    # "/roboy/middleware/MotorStatus/position/3"
+
     extract = [
         "/roboy/middleware/MotorStatus/displacement/3",
         "/roboy/middleware/MotorStatus/displacement/5",
@@ -17,6 +23,12 @@ def get_extract_dict():
         "/roboy/middleware/MotorStatus/displacement/10",
         "/roboy/middleware/MotorStatus/displacement/12",
         "/roboy/middleware/MotorStatus/displacement/13",
+        "/roboy/middleware/MotorStatus/position/3",
+        "/roboy/middleware/MotorStatus/position/5",
+        "/roboy/middleware/MotorStatus/position/6",
+        "/roboy/middleware/MotorStatus/position/10",
+        "/roboy/middleware/MotorStatus/position/12",
+        "/roboy/middleware/MotorStatus/position/13",
         '/mocap/MarkerPose/position/x',
         '/mocap/MarkerPose/position/y',
         '/mocap/MarkerPose/position/z',
