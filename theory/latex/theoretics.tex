@@ -24,6 +24,10 @@
 \usepackage{forloop}
 
 \begin{document}
+
+\section*{System-theoretic background}
+
+
 We assume that have a pyhisical system which can be described as general non-linear system in the form
 
 \begin{align*}
@@ -87,7 +91,7 @@ From this large system description it would be interesting to find a more dense 
 If we state the original system description was the relevant one the extended system is just the concatenation of the $f$ function of the original system
 If we look at the ground truth system description  the omission of states should strongly increase the error of the prediction while the addition of states should not change the error at all (redundant information) (analogous as markov property: omission should break the markov property while addition should keep it)
 
-\subsection*{Desribing static transformtations}
+\subsection*{Describing static transformations}
 
 By using the output equation $y_k=h(x_k,u_k)$ we can also describe fixed mathematical transformations like coordinate transformations if the output is just a function of the input
 
@@ -95,5 +99,16 @@ By using the output equation $y_k=h(x_k,u_k)$ we can also describe fixed mathema
 y_k=g(u_k)
 \end{align*}
 
+\section*{Application on sensory-motor mapping in tendon based robotics}
+
+Discuss classical approach with forward kinematics and inverse kinematics.
+Discuss assumable differential equation of joint configuration and motor forces.
+Mapping from motor displacements to task space pose or end effector pose as concatenation of several mappings.
+motor displacements to joint space config (dynamics in general possible)
+joint space config to task space config (kinematics, no dynamics)
+
+\section*{Application on non-linear control systems}
     
+Can we find a minimal state description of the system?
+Or a description with reasonable amount of states and only small error to original data
 \end{document}

@@ -101,3 +101,7 @@ ENV/
 .mypy_cache/
 
 data/
+
+# only tex file in latex folder
+/theory/latex/*
+!/theory/latex/*.tex
