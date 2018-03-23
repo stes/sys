@@ -1,1 +1,12 @@
 Why do we "sensory-motor" input so basically controller function?
+Classical approach would be to do system identification and then design suitable controller for the system
+
+dynamics
+what about modelling of dynamics of the systems?
+how good can we control a system where we don't model dynamics?
+do we need to look into "sufficient exitation" to explore the space of the dynamics sufficiently?
+can we approximate lower order dynamics? or approximate by simple non-linear functions
+
+Parameters
+how is the parameter dependency of system? spring config, "yarn" elasticity + strength, temperature?
+how good can we set/measure the parameters?
